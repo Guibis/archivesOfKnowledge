@@ -52,6 +52,23 @@ app.post("/books", (req, res) => {
     res.status(201).json(newBook);
 });
 
+app.put("/books/:id", (req, res) => {
+    const { title, author } = req.body;
+    if (!title || !author) {
+        return res.status(400).json({ message: "Title and author are required" });
+    }
+    const books = readBooks();
+    const book = books.find((b) => b.id === req.params.id);
+    if (book) {
+        book.title = title;
+        book.author = author;
+        writeBooks(books); 
+        res.json(book);
+    } else {
+        res.status(404).json({ message: "Book not found" });
+    }
+});
+
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
 });
