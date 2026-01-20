@@ -26,6 +26,22 @@ app.get("/books", (req, res) => {
     res.json(books);
 });
 
+app.post("/books", (req, res) => {
+    const { title, author } = req.body;
+    if (!title || !author) {
+        return res.status(400).json({ message: "Title and author are required" });
+    }
+    const books = readBooks();
+    const newBook = {
+        id: Date.now().toString(),
+        title,
+        author,
+    };
+    books.push(newBook);
+    writeBooks(books);
+    res.status(201).json(newBook);
+});
+
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
 });
