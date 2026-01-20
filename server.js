@@ -26,6 +26,16 @@ app.get("/books", (req, res) => {
     res.json(books);
 });
 
+app.get("/books/:id", (req, res) => {
+    const books = readBooks();
+    const book = books.find((b) => b.id === req.params.id);
+    if (book) {
+        res.json(book);
+    } else {
+        res.status(404).json({ message: "Book not found" });
+    }
+});
+
 app.post("/books", (req, res) => {
     const { title, author } = req.body;
     if (!title || !author) {
