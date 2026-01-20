@@ -69,6 +69,19 @@ app.put("/books/:id", (req, res) => {
     }
 });
 
+app.delete("/books/:id", (req, res) => {
+    const books = readBooks();
+    const book = books.find((b) => b.id === req.params.id);
+    if (book) {
+        const index = books.indexOf(book);
+        books.splice(index, 1);
+        writeBooks(books);
+        res.json(book);
+    } else {
+        res.status(404).json({ message: "Book not found" });
+    }
+})
+
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
 });
