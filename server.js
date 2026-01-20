@@ -8,6 +8,8 @@ app.use(express.json());
 
 const BOOKS_FILE = "./books.json";
 
+const PORT = 3000;
+
 const readBooks = () => {
     try {
         const data = fs.readFileSync(BOOKS_FILE, "utf-8");
@@ -54,8 +56,8 @@ app.post("/books", (req, res) => {
 
 app.put("/books/:id", (req, res) => {
     const { title, author } = req.body;
-    if (!title || !author) {
-        return res.status(400).json({ message: "Title and author are required" });
+    if (!title && !author) {
+        return res.status(400).json({ message: "Title or author are required" });
     }
     const books = readBooks();
     const book = books.find((b) => b.id === req.params.id);
@@ -82,6 +84,6 @@ app.delete("/books/:id", (req, res) => {
     }
 })
 
-app.listen(3000, () => {
-    console.log("Server is running on port 3000");
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
