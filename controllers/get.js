@@ -26,4 +26,4 @@ const getBookById = async (req, res) => {
     }
 };
 
-module.exports = { getBooks, getBookById };
+module.exports = getBooks, getBookById;

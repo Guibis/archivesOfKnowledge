@@ -14,4 +14,4 @@ const createBook = async (req, res) => {
     }
 };
 
-module.exports = { createBook };
+module.exports = createBook;
