@@ -62,8 +62,8 @@ app.put("/books/:id", (req, res) => {
     const books = readBooks();
     const book = books.find((b) => b.id === req.params.id);
     if (book) {
-        book.title = title;
-        book.author = author;
+        if (title) book.title = title;
+        if (author) book.author = author;
         writeBooks(books); 
         res.json(book);
     } else {
